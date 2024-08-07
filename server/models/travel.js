@@ -11,13 +11,59 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Travel.belongsToMany(models.User, { through: models.UserTravel }),
+      Travel.hasMany(models.Image, { foreignKey: 'TravelId' })
     }
   }
   Travel.init({
-    destination: DataTypes.STRING,
-    description: DataTypes.STRING,
-    price: DataTypes.INTEGER,
-    capacity: DataTypes.INTEGER
+    destination: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Destination is required'
+        },
+        notEmpty: {
+          msg: 'Destination is required'
+        }
+      }
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Description is required'
+        },
+        notEmpty: {
+          msg: 'Description is required'
+        }
+      }
+    },
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Price is required'
+        },
+        notEmpty: {
+          msg: 'Price is required'
+        }
+      }
+    },
+    capacity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Capacity is required'
+        },
+        notEmpty: {
+          msg: 'Capacity is required'
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Travel',

@@ -1,6 +1,6 @@
 const { compare } = require('../helpers/bcrypt')
 const { token, verify } = require('../helpers/jwt')
-const { User, UserProfile } = require('../models')
+const { User, UserProfile, UserTravel, Travel } = require('../models')
 
 class userController{
     static async getUsers(req, res, next){
@@ -8,7 +8,12 @@ class userController{
             const data = await User.findAll({
                 attributes: {
                     exclude: ['password']
-                }
+                }, 
+                include: [{
+                    model: Travel
+                },{
+                    model: UserProfile
+                }]
             })
 
             res.status(200).json(data)
@@ -22,7 +27,12 @@ class userController{
         const { id } = req.params;
         try {
             const data = await User.findOne({
-                where: { id }
+                where: { id }, 
+                include: [{
+                    model: Travel
+                },{
+                    model: UserProfile
+                }]
             })
 
             res.status(200).json(data)
