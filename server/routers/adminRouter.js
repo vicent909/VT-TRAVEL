@@ -9,8 +9,8 @@ router.get('/', travelController.getTravel);
 router.post('/', authentication, authorization, travelController.addTravel);
 router.get('/userTravel',authentication , travelController.getUserTravel);
 router.post('/userTravel/:id/:UserId',authentication , travelController.joinTravel);
-router.get('/image/:id',authentication, authorization, travelController.getImage);
-router.post('/image/:id',authentication ,upload.single('image'), travelController.addImageTravel);
+router.get('/image/:id', authentication, authorization, travelController.getImage);
+router.post('/image/:id',authentication, authorization ,upload.single('image'), travelController.addImageTravel);
 router.get('/:id', travelController.getTravelById);
 router.put('/:id', travelController.editTravel);
 

@@ -45,15 +45,16 @@ class userController{
     static async register(req, res, next){
         const { email, password } =req.body;
         try {
-            const data = await User.create({ email, password })
+            const data = await User.create({ email, password, role: 'user' });
 
             const access_token = token({
                 id: data.id
             });
 
             res.status(201).json({
-                id: data.id,
-                access_token: access_token
+                userId: data.id,
+                access_token: access_token,
+                role: data.role
             })
         } catch (error) {
             next(error)
@@ -77,7 +78,9 @@ class userController{
             });
 
             res.status(200).json({
-                access_token: access_token
+                userId: data.id,
+                access_token: access_token,
+                role: data.role
             })
         } catch (error) {
             next(error)

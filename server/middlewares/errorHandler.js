@@ -23,6 +23,18 @@ module.exports = error = (error, req, res, next) => {
             message: 'Password Invalid'
         })
     }
+    
+    if(error.name === 'Unauthenticated'){
+        res.status(403).json({
+            message: 'You are not authenticated'
+        })
+    }
+
+    if(error.name === 'ForbiddenRequest'){
+        res.status(403).json({
+            message: 'You have no access'
+        })
+    }
 
     if(error.name === 'NotFound'){
         res.status(404).json({

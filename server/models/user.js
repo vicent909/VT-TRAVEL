@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.belongsToMany(models.Travel, { through: models.UserTravel });
-      User.hasOne(models.UserProfile, { foreignKey: 'UserId' })
+      User.hasOne(models.UserProfile, { foreignKey: 'UserId' });
     }
   }
   User.init({
@@ -44,6 +44,9 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Password is required'
         }
       }
+    },
+    role: {
+      type: DataTypes.STRING
     }
   }, {
     sequelize,

@@ -23,7 +23,11 @@ class travelController{
     static async getTravelById(req, res, next){
         const { id } = req.params;
         try {
-            const data = await Travel.findByPk(id);
+            const data = await Travel.findByPk(id, {
+                include: [{
+                    model: Image
+                }]
+            });
 
             res.status(200).json(data)
         } catch (error) {
@@ -73,7 +77,7 @@ class travelController{
             const data = await Image.findOne({ where: { TravelId: id } });
 
             if(!data) throw { name: 'NotFound' }
-            
+
             res.status(200).json(data)
         } catch (error) {
             next(error)
