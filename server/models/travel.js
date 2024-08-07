@@ -63,6 +63,18 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Capacity is required'
         }
       }
+    },
+    CategoryId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Category is required'
+        },
+        notEmpty: {
+          msg: 'Category is required'
+        }
+      }
     }
   }, {
     sequelize,
