@@ -3,13 +3,13 @@ const { Travel, User, UserTravel, Image, Category, sequelize, UserProfile } = re
 const { v2: cloudinary } = require('cloudinary');
 const { now } = require('sequelize/lib/utils');
 const midtransClient = require('midtrans-client');
+const { OpenAI } = require('openai')
 
 cloudinary.config({
     cloud_name: "diymv0tqb",
     api_key: "428231918617181",
     api_secret: "o8efN9jnCZcxy3HI2bk3X-ABLN8"
 })
-
 
 class travelController {
     static async getTravel(req, res, next) {
@@ -285,6 +285,24 @@ class travelController {
 
             const midtransToken = await snap.createTransaction(parameter)
             res.status(201).json(midtransToken)
+        } catch (error) {
+            next(error)
+            console.log(error)
+        }
+    }
+
+    static async openAi(req, res, next) {
+        try {
+            const openai = new OpenAI({
+                apiKey: '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'
+            })
+
+            const completion = await openai.chat.completions.create({
+                messages: [{ role: "system", content: "You are a helpful assistant." }],
+                model: "gpt-3.5-turbo",
+              });
+
+              console.log(completion.choices[0]);
         } catch (error) {
             next(error)
             console.log(error)
