@@ -76,6 +76,9 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Category is required'
         }
       }
+    },
+    deletedAt: {
+      type: DataTypes.DATE
     }
   }, {
     sequelize,

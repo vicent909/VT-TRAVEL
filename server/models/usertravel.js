@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   UserTravel.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     UserId: DataTypes.INTEGER,
     TravelId: DataTypes.INTEGER
   }, {

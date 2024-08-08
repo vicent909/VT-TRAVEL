@@ -1,6 +1,7 @@
-const { Op } = require('sequelize');
-const { Travel, User, UserTravel, Image, Category, sequelize } = require('../models');
+const { Op, where } = require('sequelize');
+const { Travel, User, UserTravel, Image, Category, sequelize, UserProfile } = require('../models');
 const { v2: cloudinary } = require('cloudinary');
+const { now } = require('sequelize/lib/utils');
 
 cloudinary.config({
     cloud_name: "diymv0tqb",
@@ -22,7 +23,7 @@ class travelController{
                 },{
                     model: User
                 }],
-                where: search ? { destination: { [Op.iLike]: `%${search}%` } } : {}
+                where: search ? { destination: { [Op.iLike]: `%${search}%` }, deletedAt: null } : { deletedAt: null}
             }
 
             if(page){
@@ -50,7 +51,12 @@ class travelController{
                 include: [{
                     model: Image
                 },{
-                    model: User
+                    model: User,
+                    include: [
+                        {
+                            model: UserProfile
+                        }
+                    ]
                 }]
             });
 
@@ -104,6 +110,28 @@ class travelController{
             console.log(error)
         }
     } 
+
+    static async deleteTravel(req, res, next){
+        const { id } = req.params;
+        try {
+            console.log('aaa')
+            const data = await Travel.findByPk(id);
+
+            if(!data) throw { name: 'NotFound' };
+            // console.log(new Date())
+            data.update({ deletedAt: new Date() });
+
+            res.status(200).json({
+                message: 'Travel has been deleted'
+            })
+        } catch (error) {
+            next(error)
+            console.log(error)
+            console.log('aaa')
+            
+        }
+    } 
+    
 
     static async addImageTravel(req, res, next){
         const { id } = req.params;
@@ -160,19 +188,45 @@ class travelController{
     }
 
     static async joinTravel(req, res, next){
-        const { id, UserId } = req.params;
+        const { id } = req.params;
         try {
-            const travel = await Travel.findByPk(id);
+            const travel = await Travel.findByPk(id, {
+                include: [{
+                    model: User
+                }]
+            });
 
             if(!travel) throw { name: 'NotFound' }
 
-            const user = await User.findByPk(UserId);
+            if(travel.Users.length === travel.capacity) throw { name: 'TravelFull' };
+
+            const userId = req.user.id;
+ 
+            const user = await User.findByPk(userId);
 
             if(!user) throw { name: 'NotFound' }
 
-            const data = await UserTravel.create({ UserId: UserId, TravelId: id});
+            const data = await UserTravel.create({ UserId: user.id, TravelId: id});
 
             res.status(201).json(data)
+        } catch (error) {
+            next(error)
+            console.log(error)
+        }
+    }
+
+    static async deleteUserTravel(req, res, next){
+        const { id } = req.params;
+        try {
+            const userTravel = await UserTravel.findByPk(id);
+
+            if(!userTravel) throw { name: 'NotFound' }
+
+            userTravel.destroy();
+
+            res.status(200).json({
+                message: 'Booking travel has been deleted'
+            })
         } catch (error) {
             next(error)
             console.log(error)

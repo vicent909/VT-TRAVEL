@@ -29,6 +29,17 @@ module.exports = error = (error, req, res, next) => {
             message: 'You are not authenticated'
         })
     }
+    if(error.name === 'googleLOginFail'){
+        res.status(400).json({
+            message: 'Login Failed'
+        })
+    }
+
+    if(error.name === 'TravelFull'){
+        res.status(400).json({
+            message: 'Sorry this travel is fully booked'
+        })
+    }
 
     if(error.name === 'ForbiddenRequest'){
         res.status(403).json({

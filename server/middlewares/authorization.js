@@ -3,7 +3,7 @@ const { User } = require('../models');
 
 async function authorization(req, res, next){
     try {
-        const userId = req.user;
+        const userId = req.user.id;
 
         const user = await User.findByPk(userId);
 
@@ -13,6 +13,7 @@ async function authorization(req, res, next){
 
         next()
     } catch (error) {
+        console.log(error)
         next(error)
     }
 }

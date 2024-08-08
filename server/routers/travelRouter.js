@@ -10,10 +10,12 @@ router.get('/categories', travelController.getCategories);
 router.get('/random', travelController.getRandomTravel);
 router.post('/', authentication, authorization, travelController.addTravel);
 router.get('/userTravel',authentication , travelController.getUserTravel);
-router.post('/userTravel/:id/:UserId',authentication , travelController.joinTravel);
+router.post('/userTravel/:id',authentication , travelController.joinTravel);
+router.delete('/userTravel/:id',authentication , travelController.deleteUserTravel);
 router.get('/image/:id',authentication, authorization, travelController.getImage);
 router.post('/image/:id',authentication ,upload.single('image'), travelController.addImageTravel);
 router.get('/:id', travelController.getTravelById);
-router.put('/:id', travelController.editTravel);
+router.put('/:id',authentication, authorization, travelController.editTravel);
+router.delete('/:id',authentication, authorization, travelController.deleteTravel);
 
 module.exports = router;
