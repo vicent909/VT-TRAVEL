@@ -48,6 +48,34 @@ export default function TravelDetail() {
     }
   }
 
+  const payment = async () => {
+    try {
+      const { data } = await api({
+        method: 'POST',
+        url: '/travels/generate-midtrans-token/' + id,
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
+
+      console.log(data)
+
+      window.snap.pay(data.token, {
+        onSuccess: function(result){
+          /* You may add your own implementation here */
+          joinTravel()
+        }
+      })
+    } catch (error) {
+      console.log(error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: error.response?.data?.message
+      })
+    }
+  }
+
   const joinTravel = async () => {
     try {
       const { data } = await api({
@@ -108,7 +136,7 @@ export default function TravelDetail() {
                   </div>
                 </div>
                 <hr />
-                <button className='btn-detail-join' onClick={joinTravel}>
+                <button className='btn-detail-join' onClick={payment}>
                   Join Now
                 </button>
               </div>

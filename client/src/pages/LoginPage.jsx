@@ -81,7 +81,7 @@ export default function LoginPage() {
     });
     google.accounts.id.renderButton(
       document.getElementById("buttonDiv"),
-      { theme: "outline", size: "large" }  // customization attributes
+      { theme: "outline", size: "large", width: "1000px" }  // customization attributes
     );
     google.accounts.id.prompt(); // also display the One Tap dialog
   }, [])
@@ -101,7 +101,10 @@ export default function LoginPage() {
               <label htmlFor="password" className='form-label'>Pasword</label>
               <input type="password" className='form-control' id='password' name='password' placeholder='Please input your password' value={user.password} onChange={(e) => changeHandler(e)} required />
               <button className='btn-detail-join mt-4 btn-register' onClick={login}>Login</button>
-              <div id="buttonDiv"></div>
+              <p style={{textAlign: 'center', marginTop: 10, marginBottom: 10, color: '#c3c3c3'}}>or</p>
+              <div className="div d-flex justify-content-center">
+                <div style={{ width: 'fit-content'}} id="buttonDiv">Continue with google</div>
+              </div>
               <p style={{ textAlign: 'center', marginTop: 8, color: '#c3c3c3' }}>Don't Have an Account? <Link to={'/register'} style={{ textDecoration: 'none' }}>Register Here</Link></p>
             </div>
             <div>

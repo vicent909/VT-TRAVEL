@@ -4,10 +4,20 @@ import TravelPackageCard from '../components/TravelPackageCard';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { api } from '../utils/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions, fetchCategories } from '../store';
 
 export default function HomePage() {
     const navigate = useNavigate();
     const [travels, setTravels] = useState([]);
+
+    const categories = useSelector((state) => state.categories)
+
+    const dispatch = useDispatch()
+
+    const redux = () => {
+
+    }
 
     const getTravel = async () => {
         try {
@@ -29,6 +39,7 @@ export default function HomePage() {
 
     useEffect(() => {
         getTravel();
+        dispatch(fetchCategories());
     }, [])
     return (
         <div>

@@ -3,6 +3,7 @@ import TravelPackageCard from '../components/TravelPackageCard'
 import Swal from 'sweetalert2';
 import { api } from '../utils/api';
 import { useNavigate, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function AllTravelPage() {
     const navigate = useNavigate()
@@ -16,6 +17,8 @@ export default function AllTravelPage() {
     const [count, setCount] = useState(0);
     const page = [];
     const [pageActive, setPageActive] = useState(1)
+
+    const categoriesRedux = useSelector((state) => state.categories)
 
     const searchHandler = (e) => {
         e.preventDefault()
