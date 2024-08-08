@@ -291,23 +291,23 @@ class travelController {
         }
     }
 
-    static async openAi(req, res, next) {
-        try {
-            const openai = new OpenAI({
-                apiKey: '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'
-            })
+    // static async openAi(req, res, next) {
+    //     try {
+    //         const openai = new OpenAI({
+    //             apiKey: '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'
+    //         })
 
-            const completion = await openai.chat.completions.create({
-                messages: [{ role: "system", content: "You are a helpful assistant." }],
-                model: "gpt-3.5-turbo",
-              });
+    //         const completion = await openai.chat.completions.create({
+    //             messages: [{ role: "system", content: "You are a helpful assistant." }],
+    //             model: "gpt-3.5-turbo",
+    //           });
 
-              console.log(completion.choices[0]);
-        } catch (error) {
-            next(error)
-            console.log(error)
-        }
-    }
+    //           console.log(completion.choices[0]);
+    //     } catch (error) {
+    //         next(error)
+    //         console.log(error)
+    //     }
+    // }
 }
 
 module.exports = travelController;
