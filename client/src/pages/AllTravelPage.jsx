@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import TravelPackageCard from '../components/TravelPackageCard'
 import Swal from 'sweetalert2';
 import { api } from '../utils/api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function AllTravelPage() {
     const navigate = useNavigate()
@@ -13,10 +13,32 @@ export default function AllTravelPage() {
     const [searchUrl, setSearchUrl] = useState("")
     const [limit, setLimit] = useState(12);
     const [offset, setOffset] = useState(0);
+    const [count, setCount] = useState(0);
+    const page = [];
+    const [pageActive, setPageActive] = useState(1)
 
     const searchHandler = (e) => {
         e.preventDefault()
         setSearchUrl(search)
+    }
+
+    for (let i = 1; i <= Math.ceil(count / limit); i++) {
+        page.push(i)
+    }
+
+    const clickHandler = (pagination) => {
+        setOffset(limit * (pagination - 1))
+        setPageActive(pagination)
+    }
+
+    const beforeHandler = () => {
+        setOffset(limit * (pageActive - 2))
+        setPageActive(pageActive - 1)
+    }
+
+    const nextHandler = () => {
+        setOffset(limit * (pageActive))
+        setPageActive(pageActive + 1)
     }
 
     const url = `/travels?search=${searchUrl}&categoryId=${categorySelected}&page[limit]=${limit}&page[offset]=${offset}`
@@ -29,6 +51,7 @@ export default function AllTravelPage() {
             })
 
             setTravels(data.rows);
+            setCount(data.count)
         } catch (error) {
             console.log(error)
             Swal.fire({
@@ -70,7 +93,7 @@ export default function AllTravelPage() {
             <div>
                 <hr />
                 <form className='d-flex gap-2' onSubmit={(e) => searchHandler(e)}>
-                    <input type="text" className='form-control' name='search' placeholder='Search Travel here' onChange={(event) => setSearch(event.target.value)}/>
+                    <input type="text" className='form-control' name='search' placeholder='Search Travel here' onChange={(event) => setSearch(event.target.value)} />
                     <button className='btn btn-outline-secondary' type='submit'>Search</button>
                 </form>
                 <hr />
@@ -97,12 +120,27 @@ export default function AllTravelPage() {
                         return <TravelPackageCard
                             key={e.id}
                             destination={e.destination}
-                            image={e.Images[0].imageUrl}
+                            image={e.Images[0]?.imageUrl}
                             type={'all'}
                             onClick={() => navigate(`/detail/${e.id}`)}
                         />
                     })}
 
+                    <ul className="pagination d-flex justify-content-center mt-2">
+                        <li className="page-item">
+                            <Link className={pageActive === page[0] ? 'page-link disabled' : 'page-link'} aria-label="Previous" onClick={beforeHandler}>
+                                <span aria-hidden="true">&laquo;</span>
+                            </Link>
+                        </li>
+                        {page.map((e) => {
+                            return <li key={e} className="page-item"><Link className={pageActive === e ? 'page-link active' : 'page-link'} onClick={() => clickHandler(e)}>{e}</Link></li>
+                        })}
+                        <li className="page-item">
+                            <Link className={pageActive === page[page.length - 1] ? 'page-link disabled' : 'page-link'} aria-label="Next" onClick={nextHandler}>
+                                <span aria-hidden="true">&raquo;</span>
+                            </Link>
+                        </li>
+                    </ul>
                 </div>
             </div>
 

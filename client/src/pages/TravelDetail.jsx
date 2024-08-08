@@ -9,6 +9,7 @@ export default function TravelDetail() {
   const navigate = useNavigate()
   const [travel, setTravel] = useState({});
   const [randomTravel, setRandomTravel] = useState([]);
+  const [joinedUser, setJoinedUser] = useState(0)
 
   const getTravel = async () => {
     try {
@@ -18,6 +19,7 @@ export default function TravelDetail() {
       })
 
       setTravel(data);
+      setJoinedUser(data.Users.length)
     } catch (error) {
       console.log(error)
       Swal.fire({
@@ -46,6 +48,31 @@ export default function TravelDetail() {
     }
   }
 
+  const joinTravel = async () => {
+    try {
+      const { data } = await api({
+        method: 'POST',
+        url: `/travels/userTravel/${id}`,
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
+
+      Swal.fire({
+        icon: 'success',
+        title: 'You Have Booked the Travel'
+      })
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: error.response?.data?.message
+      })
+    }
+  }
+
   useEffect(() => {
     getTravel();
     getRandomTravel();
@@ -59,7 +86,7 @@ export default function TravelDetail() {
             <div className="col-md-9 card card-detail-left">
               <div className="row">
                 <div className="col-md-4">
-                  <img src={travel.Images[0].imageUrl} width={'100%'} style={{ borderRadius: 18 }} />
+                  <img src={travel.Images[0]?.imageUrl} width={'100%'} style={{ borderRadius: 18 }} />
                 </div>
                 <div className='col-md-8'>
                   <h1>{travel.destination}</h1>
@@ -76,12 +103,12 @@ export default function TravelDetail() {
                     <h6>Price</h6>
                   </div>
                   <div>
-                    <p> 17 (booked) / {travel.capacity} person</p>
+                    <p> {joinedUser} (booked) / {travel.capacity} person</p>
                     <p>{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(travel.price)}</p>
                   </div>
                 </div>
                 <hr />
-                <button className='btn-detail-join'>
+                <button className='btn-detail-join' onClick={joinTravel}>
                   Join Now
                 </button>
               </div>
@@ -97,7 +124,7 @@ export default function TravelDetail() {
             return <TravelPackageCard
               key={e.id}
               destination={e.destination}
-              image={e.Images[0].imageUrl}
+              image={e.Images[0]?.imageUrl}
               type={'all'}
               onClick={() => navigate(`/detail/${e.id}`)}
             />

@@ -22,7 +22,7 @@ export default function UserProfile() {
     try {
       const { data } = await api({
         method: 'POST',
-        url: `/users/${userId}/user-profile`,
+        url: `/users/user-profile`,
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token')
         },

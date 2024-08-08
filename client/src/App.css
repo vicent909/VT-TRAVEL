@@ -200,6 +200,9 @@ body{
 .form-control{
   border: #bebebe solid;
 }
+.form-select{
+  border: #bebebe solid;
+}
 
 .container-detail-top{
   display: flex;
@@ -314,4 +317,82 @@ body{
   padding: 30px;
   width: 70%;
   height: fit-content;
+}
+
+.nav-link-sidebar{
+  margin-left: 0;
+  padding-left: 20;
+}
+
+
+.tooltips {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltips .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltips .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltips:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.add-travel-card{
+  padding: 30px;
+  margin: 30px;
+}
+
+.card-detail-info{
+  padding: 20px;
+  border-radius: 30px;
+}
+
+.card-detail-info p{
+  padding: 0;
+  margin: 0;
+  text-align: end;
+}
+.card-detail-info h6{
+  color: #EB6440;
+}
+
+.card-info-booked{
+  padding: 30px;
+  border-radius: 30px;
+}
+
+.card-info-item{
+  padding: 20px;
+  border-radius: 30px;
+}
+.card-info-item h5, p{
+  padding: 0;
+  margin: 0;
 }

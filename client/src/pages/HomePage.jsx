@@ -37,7 +37,7 @@ export default function HomePage() {
                     <h5 className='your-travel'>Your Travel Services</h5>
                     <h1 className='best-escape'>Best Escape Choice</h1>
                     <p className='main-desc'>Experience the Best in Travel, A Journey Beyond Your Imagination, Where Every Destination <br /> Become Unforgetable Adventure.</p>
-                    <button className='btn btn-get-started'>Get Started</button>
+                    <button onClick={() => navigate('/login')} className='btn btn-get-started'>Get Started</button>
                 </div>
             </section>
             <section style={{ backgroundColor: '#e9e9e9', paddingTop: 40, paddingBottom: 40 }}>
@@ -56,7 +56,7 @@ export default function HomePage() {
                             return <TravelPackageCard
                                 key={e.id}
                                 destination={e.destination}
-                                image={e.Images[0].imageUrl}
+                                image={e.Images[0]?.imageUrl}
                                 onClick={() => navigate(`/detail/${e.id}`)}
                             />
                         })}
