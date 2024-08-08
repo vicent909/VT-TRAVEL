@@ -5,7 +5,7 @@ async function authorization(req, res, next){
     try {
         const userId = req.user;
 
-        const user = await User.findByPk(id);
+        const user = await User.findByPk(userId);
 
         if(user.role !== 'Admin'){
             throw { name: 'ForbiddenRequest'}

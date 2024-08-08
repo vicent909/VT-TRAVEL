@@ -1,4 +1,5 @@
-const { Travel, User, UserTravel, Image } = require('../models');
+const { Op } = require('sequelize');
+const { Travel, User, UserTravel, Image, Category, sequelize } = require('../models');
 const { v2: cloudinary } = require('cloudinary');
 
 cloudinary.config({
@@ -10,8 +11,30 @@ cloudinary.config({
 
 class travelController{ 
     static async getTravel(req, res, next){
+        const { categoryId, page, search } = req.query;
         try {
-            const data = await Travel.findAll();
+            const options = {
+                include: [{
+                    model: Image
+                },{
+                    model: Category,
+                    where: categoryId ? { id: categoryId } : {}
+                },{
+                    model: User
+                }],
+                where: search ? { destination: { [Op.iLike]: `%${search}%` } } : {}
+            }
+
+            if(page){
+                if(page.limit){
+                    options.limit = page.limit
+                }
+                if(page.offset){
+                    options.offset = page.offset
+                }
+            }
+
+            const data = await Travel.findAndCountAll(options);
 
             res.status(200).json(data)
         } catch (error) {
@@ -26,6 +49,8 @@ class travelController{
             const data = await Travel.findByPk(id, {
                 include: [{
                     model: Image
+                },{
+                    model: User
                 }]
             });
 
@@ -36,10 +61,42 @@ class travelController{
         }
     }
 
-    static async addTravel(req, res, next){
-        const { destination, description, price, capacity } = req.body;
+    static async getRandomTravel(req, res, next){
+        const { categoryId, page, search } = req.query;
         try {
-            const data = await Travel.create({ destination, description, price, capacity });
+            const options = {
+                include: [{
+                    model: Image
+                },{
+                    model: Category,
+                    where: categoryId ? { id: categoryId } : {}
+                }],
+                where: search ? { destination: { [Op.iLike]: `%${search}%` } } : {},
+                order: sequelize.random()
+            }
+
+            if(page){
+                if(page.limit){
+                    options.limit = page.limit
+                }
+                if(page.offset){
+                    options.offset = page.offset
+                }
+            }
+
+            const data = await Travel.findAndCountAll(options);
+
+            res.status(200).json(data)
+        } catch (error) {
+            next(error)
+            console.log(error)
+        }
+    }
+
+    static async addTravel(req, res, next){
+        const { destination, description, price, capacity, CategoryId } = req.body;
+        try {
+            const data = await Travel.create({ destination, description, price, capacity, CategoryId });
 
             res.status(201).json(data)
         } catch (error) {
@@ -125,6 +182,17 @@ class travelController{
     static async getUserTravel(req, res, next){
         try {
             const data = await UserTravel.findAll();
+
+            res.status(200).json(data)
+        } catch (error) {
+            next(error)
+            console.log(error)
+        }
+    }
+
+    static async getCategories(req, res, next){
+        try {
+            const data = await Category.findAll();
 
             res.status(200).json(data)
         } catch (error) {

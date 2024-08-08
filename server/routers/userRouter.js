@@ -1,5 +1,6 @@
 const userController = require('../controllers/userController');
-const { authorization } = require('../middlewares/authorization');
+const authentication = require('../middlewares/authentication');
+const authorization = require('../middlewares/authorization');
 
 const router = require('express').Router();
 
@@ -8,7 +9,7 @@ router.post('/register', userController.register);
 router.post('/login', userController.login);
 router.get('/:id', userController.getUserById);
 
-router.use(authorization)
+router.use(authentication)
 
 router.post('/:id/user-profile', userController.addUserProfile);
 router.get('/:id/user-profile', userController.getUserProfile);

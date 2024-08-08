@@ -6,6 +6,8 @@ const authorization = require('../middlewares/authorization');
 const router = require('express').Router();
 
 router.get('/', travelController.getTravel);
+router.get('/categories', travelController.getCategories);
+router.get('/random', travelController.getRandomTravel);
 router.post('/', authentication, authorization, travelController.addTravel);
 router.get('/userTravel',authentication , travelController.getUserTravel);
 router.post('/userTravel/:id/:UserId',authentication , travelController.joinTravel);
