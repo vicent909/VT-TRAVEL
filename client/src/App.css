@@ -1,42 +1,317 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+body{
+  background-color: #F6F1F1;
+}
+
+.fixed-navbar{
+  /* background-color: #F6F1F1; */
+  position: sticky;
+  top: 0px;
+  transition: 0.3s ease;
+  z-index: 9999;
+}
+
+.scrolled-navbar{
+  background-color: #ffffffef;
+  position: sticky;
+  top: 0px;
+  z-index: 999;
+  transition: 0.3s ease-in;
+}
+
+.scrolled-container{
+  background-color: #F6F1F1;
+}
+
+.nav-item{
+  position: relative;
+}
+
+.nav-link{
+  position: relative;
+  /* background-color: #F6F1F1; */
+  color: #000;
+  font-size: 1em;
+  font-weight: 500;
+  transition: 0.3s ease;
+  margin-left: 20px;
+}
+
+.nav-link:before{
+  content: '';
+  position: absolute;
+  background: #000;
+  width: 0;
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  transition: 0.5s ease;
+}
+.nav-link:hover:before{
+  width: 100%;
+}
+
+.home-top-container{
+  background-image: url('/view.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin-top: -60px;
+  padding-top: 80px;
+  padding-bottom: 80px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  /* box-shadow: inset 0 0 10px 10px #000; */
+  
+}
+
+.your-travel{
+  font-family: 'Nunito';
+  font-size: 24px;
+  font-weight: 600;
+  color: #EB6440;
+}
+
+.best-escape{
+  font-family: 'Nunito';
+  margin: 0;
+  padding: 0;
+  font-size: 80px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.main-desc{
+  font-family: 'Nunito';
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.btn-get-started{
+  background-color: #EB6440;
+  color: #fff;
+  width: 200px;
+  height: 48px;
+  font-family: 'Nunito';
+  font-size: 18px;
+  transition: 0.3s ease;
+}
+
+.btn-get-started:hover{
+  background-color: #fd9274;
+  color: #000;
+  width: 300px;
+  height: 48px;
+}
+
+.home-count-item{
+  font-family: 'Nunito';
+  display: flex;
+  flex-wrap: wrap;
   text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  border-left: #d6d6d6 solid;
+  border-right: #d6d6d6 solid;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.travel-card{
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  cursor: pointer;
+  height: 380px;
+  width: 100%;
+  border-radius: 20px;
+  color: #fff;
+  font-family: 'Nunito';
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.123);
+  transition: 0.3s ease;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.container-travel-card:hover {
+  & .travel-card{
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.425);
+    transform: scale(1.1, 1.1);
+    border-radius: 12px;
   }
-  to {
-    transform: rotate(360deg);
+
+  & .travel-card-content{
+    transform: translateY(-30px);
+  }
+
+  & .btn-joinnow{
+    opacity: 1;
+    width: 100%;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.travel-card-content{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: end;
+  align-items: center;
+  padding: 20px 20px 0 20px;
+  text-shadow: 1px 1px 2px black, 0 0 25px , 0 0 5px #000;
+  transition: 0.3s ease;
 }
 
-.card {
-  padding: 2em;
+.btn-joinnow{
+  opacity: 0;
+  width: 80%;
+  border: none;
+  border-radius: 12px;
+  transition: 0.5s ease;
+  background-color: #EB6440;
+  color: #fff;
+  height: 38px;
+  font-family: 'Nunito';
+  font-size: 18px;
 }
 
-.read-the-docs {
-  color: #888;
+.btn-joinnow:hover{
+  background-color: #fd9274;
+  color: #000;
+}
+
+.view-more-link{
+  text-decoration: none;
+  color: #000;
+}
+
+.container-footer{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  /* background-color: #000; */
+  padding: 10px;
+}
+
+.form-control{
+  border: #bebebe solid;
+}
+
+.container-detail-top{
+  display: flex;
+ 
+}
+
+.card-detail-price{
+  padding: 20px;
+  position: sticky;
+  top: 80px;
+  border-radius: 30px;
+}
+
+.card-detail-price-top{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card-detail-price p{
+  padding: 0;
+  margin: 0;
+  text-align: end;
+}
+.card-detail-price h6{
+  color: #EB6440;
+}
+
+.btn-detail-join{
+  background-color: #EB6440;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  height: 40px;
+}
+
+.btn-detail-join:hover{
+  background-color: #fd9274;
+  color: #000;
+}
+
+.card-detail-left{
+  border-radius: 30px;
+  padding: 20px;
+}
+
+.register-container{
+  height: 100vh;
+  width: 100%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.register-card{
+  height: 80%;
+}
+
+.register-left-container{
+  height: 100%;
+  background-image: url('https://images.unsplash.com/photo-1616524629947-967525666467?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjN8fG1hbGRpdmVzfGVufDB8fDB8fHww');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.register-right-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  height: 100%;
+  padding: 50px;
+}
+
+.btn-register{
+  width: 100%;
+}
+
+.login-container{
+  height: 100vh;
+  width: 100%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.login-right-container{
+  height: 100%;
+  background-image: url('https://images.unsplash.com/photo-1522547902298-51566e4fb383?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGphcGFufGVufDB8fDB8fHww');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login-left-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  height: 100%;
+  padding: 50px;
+}
+
+.container-add-userprofile{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userprofile-card{
+  padding: 30px;
+  width: 70%;
+  height: fit-content;
 }
