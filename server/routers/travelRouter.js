@@ -15,7 +15,7 @@ router.delete('/userTravel/:id',authentication , travelController.deleteUserTrav
 router.get('/image/:id',authentication, authorization, travelController.getImage);
 router.post('/image/:id',authentication ,upload.single('image'), travelController.addImageTravel);
 router.post('/generate-midtrans-token/:id',authentication , travelController.generateMidtransToken);
-router.post('/openAi', travelController.openAi);
+// router.post('/openAi', travelController.openAi);
 router.get('/:id', travelController.getTravelById);
 router.put('/:id',authentication, authorization, travelController.editTravel);
 router.delete('/:id',authentication, authorization, travelController.deleteTravel);
