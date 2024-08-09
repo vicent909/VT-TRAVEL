@@ -3,10 +3,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import AdminHomeTableItem from '../../components/AdminHomeTableItem'
 import { api } from '../../utils/api';
 import Swal from 'sweetalert2';
+import { useDispatch } from 'react-redux';
+import { fetchCategories } from '../../store';
 
 export default function AdminHome() {
     const navigate = useNavigate();
     const [travels, setTravels] = useState([]);
+    const dispatch = useDispatch()
 
     const getTravel = async () => {
         try {
@@ -57,6 +60,7 @@ export default function AdminHome() {
 
     useEffect(() => {
         getTravel();
+        dispatch(fetchCategories());
     }, [])
 
     return (

@@ -12,6 +12,7 @@ import AdminLayout from '../layouts/AdminLayout';
 import AddTravelPage from '../pages/Admin/AddTravelPage';
 import CategoriesPage from '../pages/CategoriesPage';
 import TravelInfo from '../pages/Admin/TravelInfo';
+import AskGeminiPage from '../pages/AskGeminiPage';
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
             {
                 path: '/detail/:id',
                 element: <TravelDetail />
+            },
+            {
+                path: '/ask-gemini',
+                element: <AskGeminiPage />
             },
         ]
     },

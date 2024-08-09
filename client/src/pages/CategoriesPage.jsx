@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { api } from '../utils/api';
 import Swal from 'sweetalert2';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../store';
 
 export default function CategoriesPage() {
     const [categories, setCategories] = useState([]);
 
     const categoriesRedux = useSelector((state) => state.categories);
+    const dispatch = useDispatch()
 
     const getCategories = async () => {
         try {
@@ -28,7 +29,7 @@ export default function CategoriesPage() {
     }
 
     useEffect(() => {
-        // getCategories();
+        getCategories();
         dispatch(fetchCategories());
     }, [])
     return (
@@ -43,13 +44,18 @@ export default function CategoriesPage() {
                     </tr>
                 </thead>
                 <tbody>
-                    {categoriesRedux.map((e, i) => {
+                    {categoriesRedux && categoriesRedux.map((e, i) => {
                         return <tr key={e.id}>
                             <td>{i+1}</td>
                             <td>{e.category}</td>
                         </tr>
                     })}
-
+                    {!categoriesRedux && categories .map((e, i) => {
+                        return <tr key={e.id}>
+                            <td>{i+1}</td>
+                            <td>{e.category}</td>
+                        </tr>
+                    })}
                 </tbody>
             </table>
         </div>

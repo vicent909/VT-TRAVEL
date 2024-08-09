@@ -49,6 +49,9 @@ export default function TravelDetail() {
   }
 
   const payment = async () => {
+    if(!localStorage.getItem('token')){
+      navigate('/login')
+    }
     try {
       const { data } = await api({
         method: 'POST',

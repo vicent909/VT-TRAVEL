@@ -31,9 +31,9 @@ export default function Navbar() {
                             <Link to={'/all-travel'} className="nav-link">All Travel</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link">Pricing</a>
+                            <Link to={'/ask-gemini'} className="nav-link">Ask Gemini</Link>
                         </li>
-                        <li className="nav-item dropdown">
+                        {/* <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Dropdown link
                             </a>
@@ -42,7 +42,7 @@ export default function Navbar() {
                                 <li><a className="dropdown-item" href="#">Another action</a></li>
                                 <li><a className="dropdown-item" href="#">Something else here</a></li>
                             </ul>
-                        </li>
+                        </li> */}
                     </ul>
                     {!localStorage.getItem('token') ? 
                         <button className={scrolled ? 'btn btn-outline-secondary' : 'btn btn-outline-light'} style={{width: '200px', marginLeft: '20px'}} onClick={() => navigate('/login')}>

@@ -91,7 +91,7 @@ export default function TravelInfo() {
                         </div>
                     </div>
                     <div className="row mt-4">
-                        {console.log(travel)}
+                        {/* {console.log(travel)} */}
                         <div className="card card-info-booked">
                             <h3>Booked List</h3>
                             <hr />
