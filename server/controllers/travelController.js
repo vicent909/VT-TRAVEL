@@ -4,6 +4,7 @@ const { v2: cloudinary } = require('cloudinary');
 const { now } = require('sequelize/lib/utils');
 const midtransClient = require('midtrans-client');
 const { OpenAI } = require('openai')
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 cloudinary.config({
     cloud_name: "diymv0tqb",
@@ -308,6 +309,48 @@ class travelController {
     //         console.log(error)
     //     }
     // }
+
+    static async geminiAi(req, res, next) {
+        try {
+            const { destination1, destination2 } = req.body;
+
+            const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+            const prompt = `Tolong bandingkan liburan di ${destination1} dengan ${destination2}. 
+                            Buatlah dalam bentuk JSON dengan format seprti ini: 
+                            {
+                                "first": {
+                                    nama: ... ,
+                                    tempatWisata: [...],
+                                    keunggulan: [...],
+                                    kekurangan: [...]
+                                }
+                            },
+                            {
+                                "second": {
+                                    nama: ... , 
+                                    tempatWisata: [...],
+                                    keunggulan: [...],
+                                    kekurangan: [...]
+                                }
+                            }.
+                            buatlah tanpa \`\`\`json dan \`\`\``
+
+            const result = await model.generateContent(prompt);
+            const response = await result.response;
+            let text = response.text();
+            text = JSON.parse(text.trim())
+
+            res.json(text)
+        } catch (error) {
+            next(error)
+            console.log(error)
+        }
+    }
+
+
 }
 
 module.exports = travelController;
