@@ -20,6 +20,22 @@ npx sequelize db:seed:all
 
 npx nodemon app.js
 ```
+server endpoint:
+
+```
+get ('/')
+get ('/categories') 
+get ('/random') 
+post ('/') 
+get ('/userTravel') 
+post ('/userTravel/:id) 
+delete ('/userTravel/:id') 
+post ('/generate-midtrans-token/:id')
+post ('/gemini') 
+get ('/:id') 
+put ('/:id')  
+delete ('/:id')  
+```
 
 client:
 ```
