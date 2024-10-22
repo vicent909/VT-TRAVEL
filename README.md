@@ -23,18 +23,28 @@ npx nodemon app.js
 server endpoint:
 
 ```
-get ('/')
-get ('/categories') 
-get ('/random') 
-post ('/') 
-get ('/userTravel') 
-post ('/userTravel/:id) 
-delete ('/userTravel/:id') 
-post ('/generate-midtrans-token/:id')
-post ('/gemini') 
-get ('/:id') 
-put ('/:id')  
-delete ('/:id')  
+for user:
+post ('/register')
+post ('/login')
+post ('/google-login')
+get ('/:id')
+post ('/user-profile')
+get ('/:id/user-profile')
+put ('/:id/user-profile')
+
+for travel:
+get ('/travels')
+get ('/travels/categories')
+get ('/travels/random')
+post ('/travels')
+get ('/travels/userTravel')
+post ('/travels/userTravel/:id)
+delete ('/travels/userTravel/:id')
+post ('/travels/generate-midtrans-token/:id')
+post ('/travels/gemini')
+get ('/travels/:id')
+put ('/travels/:id')
+delete ('/travels/:id') 
 ```
 
 client:
@@ -45,3 +55,15 @@ npm i
 
 npm run dev
 ```
+client endpoint: 
+``` 
+path: '/'
+path: '/login'
+path: '/register'
+path: '/all-travel'
+path: '/detail/:id'
+path: '/ask-gemini'
+path: '/user-profile'
+```
+
+
